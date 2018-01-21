@@ -1,4 +1,6 @@
-import {combinedReducers} from 'redux';
+import { combineReducers } from 'redux'
+console.log("combinedReducers")
+console.log(combineReducers)
 
 import messages from './messages';
 
@@ -10,7 +12,7 @@ const initialState = {
 }
 
 
-const meta = (state = initialState, action) => {
+const meta = (state=initialState, action) => {
     switch (action.type) {
         case 'START_FETCHING_MESSAGES':
             return Object.assign({}, state, {
@@ -31,7 +33,7 @@ const meta = (state = initialState, action) => {
 }
 
 
-const chatroom = combinedReducers({
+const chatroom = combineReducers({
     messages,
     meta
 });

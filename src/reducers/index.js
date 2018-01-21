@@ -1,9 +1,9 @@
-import {combinedReducers} from 'redux';
+import {combineReducers} from 'redux';
 
 import chatroom from './chatroom';
 import user from './user';
 
-const rootReducer = combinedReducers({
+const rootReducer = combineReducers({
     chatroom,
     user
 });
