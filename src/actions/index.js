@@ -51,11 +51,18 @@ export const fetchMessages = () => {
             ).on('value', (snapshot) => {
                 setTimeout(() => {
                     const messages = snapshot.val() || []
+                    console.log(messages)
+                    dispatch(deleteMessages())
                     dispatch(receiveMessages(messages))
                 });
             });
     }
 }
+
+
+export const deleteMessages = () => ({
+    type: 'DELETE_MESSAGES'
+})
 
 
 export const receiveMessages = (messages) => {
