@@ -44,6 +44,7 @@ export const receivedMessages = () => ({
 export const fetchMessages = () => {
     return function(dispatch) {
         dispatch(startFetchingMessages());
+        // firebase.database.goOnline()
         firebase.database(
             ).ref('messages'
             ).orderByKey(
@@ -51,11 +52,19 @@ export const fetchMessages = () => {
             ).on('value', (snapshot) => {
                 setTimeout(() => {
                     const messages = snapshot.val() || []
+                    console.log('received messages');
+                    console.log(messages)
+                    dispatch(deleteMessages())
                     dispatch(receiveMessages(messages))
                 });
             });
     }
 }
+
+
+export const deleteMessages = () => ({
+    type: 'DELETE_MESSAGES'
+})
 
 
 export const receiveMessages = (messages) => {

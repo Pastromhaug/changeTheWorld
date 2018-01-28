@@ -16,6 +16,8 @@ const message = (state, action) => {
 
 const messages = (state=[], action) => {
     switch (action.type) {
+        case 'DELETE_MESSAGES':
+            return []
         case 'ADD_MESSAGE':
             if (state.map(m => m.id).includes(action.id)) {
                 return state
