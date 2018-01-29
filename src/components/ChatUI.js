@@ -9,6 +9,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import Messages from '../containers/Messages';
 import Input from '../containers/Input';
 import { sendMessage } from '../actions';
+import ToastExample from '../toast';
+
 
 const mapStateToProps = (state) => ({
     chatHeight: state.chatroom.meta.height,
@@ -23,6 +25,7 @@ class ChatUI extends Component {
 
     componentDidMount() {
         this.scrollToBottom(false);
+        ToastExample.show('Awesome', ToastExample.SHORT);
     }
 
     componentDidUpdate() {
