@@ -10,7 +10,7 @@ import Messages from '../containers/Messages';
 import Input from '../containers/Input';
 import { sendMessage } from '../actions';
 import ToastExample from '../toast';
-import VoiceModule from '../voice';
+import SpeechModule from '../speech';
 
 
 const mapStateToProps = (state) => ({
@@ -27,7 +27,7 @@ class ChatUI extends Component {
     componentDidMount() {
         this.scrollToBottom(false);
         ToastExample.show('Awesome', ToastExample.SHORT);
-        VoiceModule.startVoiceRecorder();
+        SpeechModule.startVoiceRecorder();
     }
 
     componentDidUpdate() {
