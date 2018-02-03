@@ -14,6 +14,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.stromdog.toast.ToastPackage;
+import com.stromdog.voice.VoicePackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -36,7 +37,8 @@ public class MainApplication extends Application implements ReactApplication {
             new PhotoViewPackage(),
             new LinearGradientPackage(),
             new VectorIconsPackage(),
-            new ToastPackage()
+            new ToastPackage(),
+            new VoicePackage()
       );
     }
 
