@@ -23,25 +23,7 @@ public class VoicePackage implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        VoiceModule.Callback mVoiceModuleCallback = new VoiceModule.Callback() {
-            @Override
-            public void onVoiceStart() {
-                Log.i("onVoiceStart", "onVoiceStart");
-            }
-
-            @Override
-            public void onVoice(byte[] data, int size) {
-                Log.i("data", data.toString());
-                Log.i("size", Integer.toString(size));
-            }
-
-            @Override
-            public void onVoiceEnd() {
-                Log.i("onVoiceEnd", "onVoiceEnd");
-            }
-        };
-
-        modules.add(new VoiceModule(reactContext, mVoiceModuleCallback));
+        modules.add(new VoiceModule(reactContext));
 
         return modules;
     }

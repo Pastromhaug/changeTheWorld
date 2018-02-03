@@ -20,6 +20,7 @@ import android.media.AudioFormat;
 import android.media.AudioRecord;
 import android.media.MediaRecorder;
 import android.support.annotation.NonNull;
+import android.util.Log;
 
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -29,7 +30,7 @@ import com.facebook.react.bridge.ReactMethod;
 
 
 /**
- * Continuously records audio and notifies the {@link VoiceModule.Callback} when voice (or any
+ * Continuously records audio and notifies the {@link } when voice (or any
  * sound) is heard.
  *
  * <p>The recorded audio format is always {@link AudioFormat#ENCODING_PCM_16BIT} and
@@ -47,41 +48,28 @@ public class VoiceModule extends ReactContextBaseJavaModule{
     private static final int SPEECH_TIMEOUT_MILLIS = 2000;
     private static final int MAX_SPEECH_LENGTH_MILLIS = 30 * 1000;
 
-    public VoiceModule(ReactApplicationContext reactContext, @NonNull Callback callback) {
-        super(reactContext);
-        mCallback = callback;
-    }
+    public VoiceModule(ReactApplicationContext reactContext) {super(reactContext);}
 
     @Override
     public String getName() {
         return "VoicePackage";
     }
 
-    public static abstract class Callback {
-
-        /**
-         * Called when the recorder starts hearing voice.
-         */
-        public void onVoiceStart() {
-        }
-
-        /**
-         * Called when the recorder is hearing voice.
-         *
-         * @param data The audio data in {@link AudioFormat#ENCODING_PCM_16BIT}.
-         * @param size The size of the actual data in {@code data}.
-         */
-        public void onVoice(byte[] data, int size) {
-        }
-
-        /**
-         * Called when the recorder stops hearing voice.
-         */
-        public void onVoiceEnd() {
-        }
+    @ReactMethod
+    public void onVoiceStart() {
+        Log.i("onVoiceStart", "onVoiceStart");
     }
 
-    private final Callback mCallback;
+    @ReactMethod
+    public void onVoice(byte[] data, int size) {
+        Log.i("data", data.toString());
+        Log.i("size", Integer.toString(size));
+    }
+
+    @ReactMethod
+    public void onVoiceEnd() {
+        Log.i("onVoiceEnd", "onVoiceEnd");
+    }
 
     private AudioRecord mAudioRecord;
 
@@ -143,7 +131,7 @@ public class VoiceModule extends ReactContextBaseJavaModule{
     public void dismiss() {
         if (mLastVoiceHeardMillis != Long.MAX_VALUE) {
             mLastVoiceHeardMillis = Long.MAX_VALUE;
-            mCallback.onVoiceEnd();
+            onVoiceEnd();
         }
     }
 
@@ -184,7 +172,7 @@ public class VoiceModule extends ReactContextBaseJavaModule{
     }
 
     /**
-     * Continuously processes the captured audio and notifies {@link #mCallback} of corresponding
+     * Continuously processes the captured audio and notifies {@link #} of corresponding
      * events.
      */
     private class ProcessVoice implements Runnable {
@@ -201,15 +189,15 @@ public class VoiceModule extends ReactContextBaseJavaModule{
                     if (isHearingVoice(mBuffer, size)) {
                         if (mLastVoiceHeardMillis == Long.MAX_VALUE) {
                             mVoiceStartedMillis = now;
-                            mCallback.onVoiceStart();
+                            onVoiceStart();
                         }
-                        mCallback.onVoice(mBuffer, size);
+                        onVoice(mBuffer, size);
                         mLastVoiceHeardMillis = now;
                         if (now - mVoiceStartedMillis > MAX_SPEECH_LENGTH_MILLIS) {
                             end();
                         }
                     } else if (mLastVoiceHeardMillis != Long.MAX_VALUE) {
-                        mCallback.onVoice(mBuffer, size);
+                        onVoice(mBuffer, size);
                         if (now - mLastVoiceHeardMillis > SPEECH_TIMEOUT_MILLIS) {
                             end();
                         }
@@ -220,7 +208,7 @@ public class VoiceModule extends ReactContextBaseJavaModule{
 
         private void end() {
             mLastVoiceHeardMillis = Long.MAX_VALUE;
-            mCallback.onVoiceEnd();
+            onVoiceEnd();
         }
 
         private boolean isHearingVoice(byte[] buffer, int size) {
