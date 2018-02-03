@@ -23,7 +23,7 @@ public class VoicePackage implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new VoiceModule(reactContext));
+        modules.add(new VoiceIntegrationModule(reactContext));
 
         return modules;
     }
