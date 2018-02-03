@@ -1,5 +1,7 @@
 package com.stromdog.voice;
 
+import android.util.Log;
+
 import com.facebook.react.ReactPackage;
 import com.facebook.react.bridge.NativeModule;
 import com.facebook.react.bridge.ReactApplicationContext;
@@ -21,7 +23,25 @@ public class VoicePackage implements ReactPackage {
             ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();
 
-        modules.add(new VoiceModule(reactContext));
+        VoiceModule.Callback mVoiceModuleCallback = new VoiceModule.Callback() {
+            @Override
+            public void onVoiceStart() {
+                Log.i("onVoiceStart", "onVoiceStart");
+            }
+
+            @Override
+            public void onVoice(byte[] data, int size) {
+                Log.i("data", data.toString());
+                Log.i("size", Integer.toString(size));
+            }
+
+            @Override
+            public void onVoiceEnd() {
+                Log.i("onVoiceEnd", "onVoiceEnd");
+            }
+        };
+
+        modules.add(new VoiceModule(reactContext, mVoiceModuleCallback));
 
         return modules;
     }
