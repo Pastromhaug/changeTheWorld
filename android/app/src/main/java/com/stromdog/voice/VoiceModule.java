@@ -55,18 +55,15 @@ public class VoiceModule extends ReactContextBaseJavaModule{
         return "VoicePackage";
     }
 
-    @ReactMethod
     public void onVoiceStart() {
         Log.i("onVoiceStart", "onVoiceStart");
     }
 
-    @ReactMethod
     public void onVoice(byte[] data, int size) {
         Log.i("data", data.toString());
         Log.i("size", Integer.toString(size));
     }
 
-    @ReactMethod
     public void onVoiceEnd() {
         Log.i("onVoiceEnd", "onVoiceEnd");
     }
@@ -91,6 +88,7 @@ public class VoiceModule extends ReactContextBaseJavaModule{
      *
      * <p>The caller is responsible for calling {@link #stop()} later.</p>
      */
+    @ReactMethod
     public void start() {
         // Stop recording if it is currently ongoing.
         stop();
@@ -109,6 +107,7 @@ public class VoiceModule extends ReactContextBaseJavaModule{
     /**
      * Stops recording audio.
      */
+    @ReactMethod
     public void stop() {
         synchronized (mLock) {
             dismiss();
