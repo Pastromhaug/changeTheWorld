@@ -10,6 +10,7 @@ import Messages from '../containers/Messages';
 import Input from '../containers/Input';
 import { sendMessage } from '../actions';
 import ToastExample from '../toast';
+import { DeviceEventEmitter } from 'react-native';
 import SpeechModule from '../speech';
 
 
@@ -27,6 +28,9 @@ class ChatUI extends Component {
     componentDidMount() {
         this.scrollToBottom(false);
         ToastExample.show('Awesome', ToastExample.SHORT);
+        DeviceEventEmitter.addListener('speechReceived', function(e) {
+            console.log(e)
+        });
         SpeechModule.startVoiceRecorder();
     }
 
