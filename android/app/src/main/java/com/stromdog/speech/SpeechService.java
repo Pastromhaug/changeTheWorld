@@ -71,6 +71,8 @@ import io.grpc.internal.DnsNameResolverProvider;
 import io.grpc.okhttp.OkHttpChannelProvider;
 import io.grpc.stub.StreamObserver;
 
+import com.stromdog.R;
+
 
 public class SpeechService extends Service {
 
