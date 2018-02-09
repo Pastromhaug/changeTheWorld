@@ -168,6 +168,12 @@ android {
         resolutionStrategy.force 'com.google.code.findbugs:jsr305:3.0.2'
         resolutionStrategy.force "com.android.support:support-annotations:$supportLibraryVersion"
     }
+
+    packagingOptions {
+        pickFirst 'META-INF/INDEX.LIST'
+        pickFirst 'META-INF/LICENSE'
+        pickFirst 'META-INF/io.netty.versions.properties'
+    }
 }
 
 protobuf {
