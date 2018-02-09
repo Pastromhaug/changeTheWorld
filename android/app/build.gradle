@@ -210,7 +210,7 @@ dependencies {
     compile "com.google.firebase:firebase-database:11.6.0"
     compile "com.google.firebase:firebase-auth:11.6.0"
 
-    compile 'com.google.cloud:google-cloud-speech:0.32.0-alpha'
+    compile 'com.google.cloud:google-cloud-speech:0.34.0-alpha'
 
     // gRPC
     compile "io.grpc:grpc-okhttp:$grpcVersion"
@@ -219,7 +219,7 @@ dependencies {
     compile 'javax.annotation:javax.annotation-api:1.2'
     protobuf 'com.google.protobuf:protobuf-java:3.3.1'
 
-    compile group: 'com.google.api.grpc', name: 'grpc-google-cloud-speech-v1', version: '0.1.13'
+    compile group: 'com.google.api.grpc', name: 'grpc-google-cloud-speech-v1', version: '0.1.29'
 
     // OAuth2 for Google API
     compile('com.google.auth:google-auth-library-oauth2-http:0.7.0') {
